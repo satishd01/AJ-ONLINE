@@ -9,13 +9,21 @@ export const getToken = () => {
 
 export const getAuthorizationHeader = () => `${getToken()}`;
 // Create an Axios instance with default configurations
+// const axiosInstance: AxiosInstance = axios.create({
+//   baseURL: process.env.NEXT_PUBLIC_API_URL || "https://ajonline.shellcode.cloud",
+//   headers: {
+//     "Content-Type": "application/json",
+//     Authorization: getAuthorizationHeader(),
+//   },
+// });
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "https://ajonline.shellcode.cloud",
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL || "https://ajonline.shellcode.cloud"}/api/v1`, // Add /api/v1 here
   headers: {
     "Content-Type": "application/json",
     Authorization: getAuthorizationHeader(),
   },
 });
+
 axiosInstance.interceptors.response.use(
   (response) => {
     if (response.data?.success && response.data?.toast) {
